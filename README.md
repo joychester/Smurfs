@@ -1,6 +1,6 @@
 # Smurfs
 Precondition: 
-> * install Phantomjs
+> * install ruby and Phantomjs, add them to PATH
 > * gem install concurrent-ruby
 > * gem install concurrent-ruby-edge
 > * gem install rufus-scheduler (optional)
