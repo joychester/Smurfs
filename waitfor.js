@@ -1,4 +1,4 @@
-function waitFor(testFx, onReady, timeOutMillis) {
+function waitForFunc(testFx, onReady, timeOutMillis) {
     var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 15000, //< Default Max Timout is 3s
         start = new Date().getTime(),
         condition = false,
@@ -13,34 +13,21 @@ function waitFor(testFx, onReady, timeOutMillis) {
                     phantom.exit(1);
                 } else {
                     // Condition fulfilled (timeout and/or condition is 'true')
-                    // console.log("Test finished in " + (new Date().getTime() - start) + "ms.");
-                    console.log("Page loaded in " + (new Date().getTime() - entry) + "ms.");
+                    var load_timing = (new Date().getTime() - entry);
+
+                    console.log(load_timing);
                     typeof(onReady) === "string" ? eval(onReady) : onReady(); //< Do what it's supposed to do once the condition is fulfilled
                     clearInterval(interval); //< Stop this interval
+
+                    // Kafka producer to log the page load timing
+                    var kf_request = require('webpage').create();
+                    var postBody = 'client_id=aaa&topic=test&msg=' + load_timing;
+
+                    kf_request.open('http://localhost:8887/postkf', 'post', postBody, function(status) {
+                      console.log('Sent to the Kafka Ruby bindings: ' + status);
+                      phantom.exit();
+                    });
                 }
             }
         }, 250); //< repeat check every 250ms
 };
-
-var page = require('webpage').create();
-
-entry = new Date().getTime();
-// Open webpage, onPageLoad, do...
-page.open("http://www.slce006.com/performer/136034/", function (status) {
-    // Check for page load success
-    if (status !== "success") {
-        console.log("Unable to access network");
-    } else {
-        // Wait for page element be visible
-        waitFor(function() {
-            // Check in the page if a specific element is now visible
-            return page.evaluate(function() {
-                return $('div.events_load_more').is(':visible');
-            });
-        }, function() {
-           console.log("Test completed...");
-           //page.render('artist.png')
-           phantom.exit();
-        }, 15000);
-    }
-});
