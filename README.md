@@ -3,8 +3,10 @@ Precondition:
 > * install ruby and Phantomjs, add them to PATH
 > * gem install concurrent-ruby
 > * gem install concurrent-ruby-edge
-> * gem install concurrent-ruby-ext (optional for perf improvement on MRI)
+> * gem install concurrent-ruby-ext (optional, for perf improvement on MRI)
 > * gem install rufus-scheduler (optional)
+> * gem install poseidon (optional, for kafka client)
+> * gem install sinatra (optional, create web server to forward kafka messages)  
 
 How to:
 > ruby smurfs.rb 10 100
