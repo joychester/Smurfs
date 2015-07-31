@@ -20,13 +20,13 @@ function waitForFunc(testFx, onReady, timeOutMillis, tag, ka_topic) {
                     clearInterval(interval); //< Stop this interval
 
                     // Kafka producer to log the page load timing
-                    var kf_request = require('webpage').create();
-                    var postBody = 'client_id=' + tag + '&topic=' + ka_topic + '&msg=' + load_timing;
-
-                    kf_request.open('http://localhost:8887/postkf', 'post', postBody, function(status) {
-                      console.log('Sent to the Kafka Ruby bindings: ' + status);
-                      phantom.exit();
-                    });
+                    if (phantom.injectJs("ka_client.js")) {
+                        //kafka msg sent
+                        msgPush(tag, ka_topic, load_timing);
+                    } else {
+                        console.log("check ka_client.js exsit if you need to post msg to kafka...");
+                        phantom.exit();
+                    }
                 }
             }
         }, 250); //< repeat check every 250ms
