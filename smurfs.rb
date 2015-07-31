@@ -24,7 +24,7 @@ class Phantom < Concurrent::Actor::Context
   	def on_message(message)
   		if String === message 
   			LOOP_CNT.times do 
-          #system("phantomjs page_perf_test.js")
+          # start the test, for example system("phantomjs page_perf_test.js")
           system("phantomjs #{message}")
         end
   		else 
