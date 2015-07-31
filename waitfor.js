@@ -1,4 +1,4 @@
-function waitForFunc(testFx, onReady, timeOutMillis) {
+function waitForFunc(testFx, onReady, timeOutMillis, tag, ka_topic) {
     var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 15000, //< Default Max Timout is 3s
         start = new Date().getTime(),
         condition = false,
@@ -21,7 +21,7 @@ function waitForFunc(testFx, onReady, timeOutMillis) {
 
                     // Kafka producer to log the page load timing
                     var kf_request = require('webpage').create();
-                    var postBody = 'client_id=aaa&topic=test&msg=' + load_timing;
+                    var postBody = 'client_id=' + tag + '&topic=' + ka_topic + '&msg=' + load_timing;
 
                     kf_request.open('http://localhost:8887/postkf', 'post', postBody, function(status) {
                       console.log('Sent to the Kafka Ruby bindings: ' + status);
