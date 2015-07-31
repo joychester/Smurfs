@@ -2,7 +2,7 @@ require 'concurrent'
 require 'concurrent/actor'
 require 'rufus-scheduler'
 
-p CURR_DIR = File.expand_path(__dir__)
+CURR_DIR = File.expand_path(__dir__)
 
 scheduler = Rufus::Scheduler.new
 
@@ -17,7 +17,7 @@ end
 #Actor Class to handle the currency mode
 class Phantom < Concurrent::Actor::Context
 	def initialize()
-    	p @init_time = Time.now.to_f
+    	@init_time = Time.now.to_f
   	end
 
   	 # override on_message to define actor's behaviour
