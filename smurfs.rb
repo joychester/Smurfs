@@ -43,7 +43,8 @@ ACTOR_CNT.times do |i|
 end
 
 #TODO: looking for *.js as its test script and distribute to each actor message
-@exec_js = Dir["./*_test_script/*.js"][0] if ARGV[2] == nil
+@exec_js = (ARGV[2] == nil) ? Dir["./*_test_script/*.js"][0] : ARGV[2]
+
 
 actor_arr.each { |actor|
   p "#{actor.name} starting running"
