@@ -14,6 +14,9 @@ else
   LOOP_CNT= ARGV[1].to_i
 end
 
+#looking for *.js as its test script and distribute to each actor message
+@exec_js = (ARGV[2] == nil) ? Dir["./*_test_script/*.js"][0] : ARGV[2]
+
 #Actor Class to handle the currency mode
 class Phantom < Concurrent::Actor::Context
 	def initialize()
@@ -41,10 +44,6 @@ ACTOR_CNT.times do |i|
 	actor_name = "phantom_actor_#{i}"
 	actor_arr[i] = Phantom.spawn(actor_name)
 end
-
-#TODO: looking for *.js as its test script and distribute to each actor message
-@exec_js = (ARGV[2] == nil) ? Dir["./*_test_script/*.js"][0] : ARGV[2]
-
 
 actor_arr.each { |actor|
   p "#{actor.name} starting running"
