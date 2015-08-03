@@ -9,7 +9,7 @@ Precondition:
 > * gem install sinatra (optional, create web server to forward kafka messages)  
 
 How to:
-> ruby smurfs.rb 10 100
+> ruby smurfs.rb 10 100 [./page1_test_script/page_perf_sample.js] 
 
 Notice:
 > First Param [10]: 10 Concurrent users  
