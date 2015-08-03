@@ -28,7 +28,7 @@ class Phantom < Concurrent::Actor::Context
           system("phantomjs #{message}")
         end
   		else 
-  			raise TypeError, 'need to pass on an Integer'
+  			raise TypeError, 'need to pass your test file name'
   		end
   	end
 end
@@ -43,7 +43,7 @@ ACTOR_CNT.times do |i|
 end
 
 #TODO: looking for *.js as its test script and distribute to each actor message
-@exec_js = Dir["*.js"][0]
+@exec_js = Dir["./*_test_script/*.js"][0] if ARGV[2] == nil
 
 actor_arr.each { |actor|
   p "#{actor.name} starting running"
