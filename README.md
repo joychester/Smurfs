@@ -14,4 +14,4 @@ How to:
 Notice:
 > First Param [10]: 10 Concurrent users  
 > Second Param [100]: Execute 100 loops by each user
-
+> Third Param [optional]: the test script you want to exec  
