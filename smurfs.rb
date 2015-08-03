@@ -4,7 +4,7 @@ require 'rufus-scheduler'
 
 CURR_DIR = File.expand_path(__dir__)
 
-scheduler = Rufus::Scheduler.new
+@scheduler = Rufus::Scheduler.new
 
 if ARGV.empty?
   p 'need to assign threads number and running loops, exit now'
@@ -36,7 +36,7 @@ class Phantom < Concurrent::Actor::Context
   	end
 end
 
-test_started = Time.now.to_f
+@test_started = Time.now.to_i
 
 actor_arr = []
 
@@ -52,10 +52,17 @@ actor_arr.each { |actor|
 }
 
 #check testing results until timed out
-scheduler.every '3s' , :times => 10 do
-    puts 'grabbing some results'
+@scheduler.every '3s' do
+
+  @test_duration = Time.now.to_i - @test_started
+
+  #test timeout default value set to 5 mins
+  if @test_duration <= 30
+    p 'grabbing some results'
+  else
+    p "===Test Timed Out after #{@test_duration} seconds, exiting==="
+    @scheduler.shutdown
+  end
 end
 
-scheduler.join
-
-p test_duration = Time.now.to_f - test_started
+@scheduler.join
