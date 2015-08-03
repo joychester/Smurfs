@@ -57,7 +57,7 @@ actor_arr.each { |actor|
   @test_duration = Time.now.to_i - @test_started
 
   #test timeout default value set to 5 mins
-  if @test_duration <= 30
+  if @test_duration <= 300
     p 'grabbing some results'
   else
     p "===Test Timed Out after #{@test_duration} seconds, exiting==="
