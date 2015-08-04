@@ -1,21 +1,35 @@
 require 'concurrent'
 require 'concurrent/actor'
 require 'rufus-scheduler'
+require './cmdParser'
 
 CURR_DIR = File.expand_path(__dir__)
 
 @scheduler = Rufus::Scheduler.new
 
+include CmdParser
+
 if ARGV.empty?
-  p 'need to assign threads number and running loops, exit now'
+  p 'empty option, type -h option for help, exit now...'
   exit
 else
-  ACTOR_CNT = ARGV[0].to_i
-  LOOP_CNT= ARGV[1].to_i
+  @options = CmdParser.getoptions(ARGV)
+
+  ACTOR_CNT = @options[:users].to_i #should be mandatory
+  if @options[:loops] != nil
+    LOOP_CNT = @options[:loops].to_i 
+  elsif options[:duration] !=nil
+    LOOP_CNT = 99999 #set to max loop counts until test duration reached
+  else
+    p 'incorrect options, type -h option for help, exit now...'
+    exit
+  end
 end
 
 #looking for *.js as its test script and distribute to each actor message
-@exec_js = (ARGV[2] == nil) ? Dir["./*_test_script/*.js"][0] : ARGV[2]
+@exec_js = (@options[:file] == nil) ? Dir["./*_test_script/*.js"][0] : @options[:file]
+#set timeout value for the test duration, default=5 mins
+@timeout = (@options[:duration] == nil) ? 300 : @options[:duration].to_i
 
 #Actor Class to handle the currency mode
 class Phantom < Concurrent::Actor::Context
@@ -57,7 +71,7 @@ actor_arr.each { |actor|
   @test_duration = Time.now.to_i - @test_started
 
   #test timeout default value set to 5 mins
-  if @test_duration <= 300
+  if @test_duration <= @timeout
     p 'grabbing some results'
   else
     p "===Test Timed Out after #{@test_duration} seconds, exiting==="
