@@ -8,10 +8,11 @@ Precondition:
 > * gem install poseidon (optional, for kafka client)
 > * gem install sinatra (optional, create web server to forward kafka messages)  
 
-How to:
-> ruby smurfs.rb 10 100 [./page1_test_script/page_perf_sample.js] 
+How to: 
+> ruby smurfs.rb -u 3 -l 10 -d 20 -f ./page1_test_script/page_perf_sample.js  
 
 Notice:
-> First Param [10]: 10 Concurrent users  
-> Second Param [100]: Execute 100 loops by each user  
-> Third Param [optional]: the test script you want to exec  
+> First option [-u 3]: 3 Concurrent users  
+> Second option [-l 10 optional]: Execute 10 loops by each user  
+> Third option [-d 20 optional]: test duration timed out value  
+> Fouth option [-f ./xxx/x.js]: the test script you want to exec  
