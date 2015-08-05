@@ -25,5 +25,5 @@ if (phantom.injectJs("waitfor.js")) {
     });
 } else {
     console.log("can not find wairfor js, exiting...");
-    phantom.exit();
+    phantom.exit(1);
 }
