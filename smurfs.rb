@@ -31,13 +31,12 @@ end
 #set timeout value for the test duration, default=5 mins
 @timeout = (@options[:duration] == nil) ? 300 : @options[:duration].to_i
 
-
 @test_started = Time.now.to_i
 
 actor_arr = []
 
 ACTOR_CNT.times do |i|
-	actor_name = "phantom_actor_#{i}"
+  actor_name = (@options[:group] != nil) ? "#{@options[:group]}_phantom_actor_#{i}" : "phantom_actor_#{i}"
 	actor_arr[i] = PhantomActor.spawn(actor_name)
 end
 

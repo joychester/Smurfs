@@ -5,7 +5,7 @@ var page_element = 'div.events_load_more';
 if (phantom.injectJs("waitfor.js")) {
 
     entry = new Date().getTime();
-    // Open webpage, onPageLoad, do...
+    // Open webpage, callback() is called using page.onLoadFinished
     page.open(test_url, function (status) {
         // Check for page load success
         if (status !== "success") {

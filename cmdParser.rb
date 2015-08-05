@@ -3,7 +3,7 @@ require 'optparse'
 module CmdParser
 
   def getoptions(args)
-    options = { :users => nil, :loops => nil, :duration => nil, :script => nil}
+    options = { :users => nil, :loops => nil, :duration => nil, :script => nil, :group => nil}
 
     OptionParser.new do |opts|
       opts.banner = "Usage: smurfs.rb [options]"
@@ -22,6 +22,10 @@ module CmdParser
       
       opts.on("-f", "--file file", "Test Script") do |f|
           options[:file] = f
+      end
+
+      opts.on("-g", "--group group", "Test Group Name") do |g|
+          options[:group] = g
       end
       
     end.parse!(args)
