@@ -19,4 +19,4 @@ Notice:
 > Fifth option [-f ./xxx/x.js]: Test script you want to exec  
 
 To-Do:
-> will adopt nightmare or phantasma lib instead of purely phantomjs to composite test scripts
+> will adopt nightmare lib instead of raw phantomjs to composite test scripts
