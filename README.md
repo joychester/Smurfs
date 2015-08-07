@@ -17,3 +17,6 @@ Notice:
 > Third option [-d 20 optional]: Test duration timed out value
 > Fouth option [-g group optional]: Test Group Name 
 > Fifth option [-f ./xxx/x.js]: Test script you want to exec  
+
+To-Do:
+> will adopt nightmare or phantasma lib instead of purely phantomjs to composite test scripts
