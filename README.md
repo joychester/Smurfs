@@ -19,6 +19,6 @@ Notice:
 > Fifth option [-f ./xxx/x.js]: Test script you want to exec  
 
 To-Do:
-> [Deprecated] will adopt nightmare lib instead of raw phantomjs to composite test scripts  
-> Due to [the performance issue within Phantomjs](https://github.com/segmentio/nightmare/issues/200), nightmare is starting its [V2 development](https://github.com/segmentio/nightmare/tree/v2)
+> * [Deprecated] will adopt nightmare lib instead of raw phantomjs to composite test scripts  
+> * Due to [the performance issue within Phantomjs](https://github.com/segmentio/nightmare/issues/200), nightmare is starting its [V2 development](https://github.com/segmentio/nightmare/tree/v2)
 > So we will stop using nightmareV1 in Smurf, and adpot nightmareV2 once it is released.(which means currently smurf project only support single page testing with phantomjs)
