@@ -1,0 +1,13 @@
+# A sample Gemfile
+source "https://ruby.taobao.org/"
+ruby '2.2.3'
+
+# gem "rails"
+gem 'sinatra', require: 'sinatra/base'
+gem 'haml'
+gem 'rake'
+gem 'require_all'
+
+gem 'sequel'
+gem 'pg'
+gem 'poseidon'

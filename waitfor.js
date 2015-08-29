@@ -1,4 +1,4 @@
-function waitForFunc(testFx, onReady, timeOutMillis, tag, ka_topic) {
+function waitForFunc(testFx, onReady, timeOutMillis, tag, ka_topic, url, host) {
     var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 15000, //< Default Max Timout is 3s
         start = new Date().getTime(),
         condition = false,
@@ -13,7 +13,7 @@ function waitForFunc(testFx, onReady, timeOutMillis, tag, ka_topic) {
                     phantom.exit(1);
                 } else {
                     // Condition fulfilled (timeout and/or condition is 'true')
-                    var load_timing = (new Date().getTime() - entry);
+                    var load_timing = (new Date().getTime() - entry_time);
 
                     console.log(load_timing);
                     typeof(onReady) === "string" ? eval(onReady) : onReady(); //< Do what it's supposed to do once the condition is fulfilled
@@ -22,7 +22,8 @@ function waitForFunc(testFx, onReady, timeOutMillis, tag, ka_topic) {
                     // Kafka producer to log the page load timing
                     if (phantom.injectJs("ka_client.js")) {
                         //kafka msg sent
-                        msgPush(tag, ka_topic, load_timing);
+                        msg = entry_time + ',' + url + ',' + load_timing + ',' + host
+                        msgPush(tag, ka_topic, msg);
                     } else {
                         console.log("check ka_client.js exsit if you need to post msg to kafka...");
                         phantom.exit();

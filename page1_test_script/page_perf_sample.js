@@ -1,10 +1,10 @@
 var page = require('webpage').create();
-var test_url = "http://www.slce006.com/performer/136034/", tp = 'test', page_tag = 'artist_page';
-var page_element = 'div.events_load_more';
+var test_url = "http://www.slce006.com/", tp = 'test', page_tag = 'home_page', host = "slce006";
+var page_element = 'a.see-more-text';
 
 if (phantom.injectJs("waitfor.js")) {
 
-    entry = new Date().getTime();
+    entry_time = new Date().getTime();
     // Open webpage, callback() is called using page.onLoadFinished
     page.open(test_url, function (status) {
         // Check for page load success
@@ -20,7 +20,7 @@ if (phantom.injectJs("waitfor.js")) {
             }, function() {
                console.log("Test completed...");
                //page.render('screenshots.png');
-            }, 15000, page_tag, tp);
+            }, 15000, page_tag, tp, test_url, host);
         }
     });
 } else {
