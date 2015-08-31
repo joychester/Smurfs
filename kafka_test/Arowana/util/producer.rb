@@ -7,7 +7,8 @@ module KA_producer
 			producer = Poseidon::Producer.new(["#{host}:#{port}"], client_id,:type => :sync)
 
 			messages = []
-			messages << Poseidon::MessageToSend.new(topic_name, client_id + ',' + msg)
+			#messages << Poseidon::MessageToSend.new(topic_name, client_id + ',' + msg)
+			messages << Poseidon::MessageToSend.new(topic_name, msg)
 
 			producer.send_messages(messages)
 			producer.close

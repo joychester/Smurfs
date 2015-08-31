@@ -1,5 +1,5 @@
 var page = require('webpage').create();
-var test_url = "http://www.slce006.com/", tp = 'test', page_tag = 'home_page', host = "slce006";
+var test_url = "http://www.slce003.com/", tp = 'test', page_tag = 'home_page', host = "slce006";
 var page_element = 'a.see-more-text';
 
 if (phantom.injectJs("waitfor.js")) {

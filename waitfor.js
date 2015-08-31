@@ -21,8 +21,8 @@ function waitForFunc(testFx, onReady, timeOutMillis, tag, ka_topic, url, host) {
 
                     // Kafka producer to log the page load timing
                     if (phantom.injectJs("ka_client.js")) {
-                        //kafka msg sent
-                        msg = entry_time + ',' + url + ',' + load_timing + ',' + host
+                        //kafka msg sent, need to sync with DB schema columns
+                        msg = entry_time + ',' + url + ',' + tag + ',' + load_timing + ',' + host
                         msgPush(tag, ka_topic, msg);
                     } else {
                         console.log("check ka_client.js exsit if you need to post msg to kafka...");
