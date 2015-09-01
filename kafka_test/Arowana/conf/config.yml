@@ -4,3 +4,7 @@ sinatraport: 4567
 dbconnect: postgres://postgres:root@localhost:5432/kafka_dash
 loggerlevel: INFO #: DEBUG, INFO, WARN, ERROR, FATAL, or UNKNOWN
 loggerpath: log/server.log #STDOUT as default if this is nil
+
+##kafka stuff
+kafka_host: 10.131.64.224
+kafka_port: 9092

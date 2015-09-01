@@ -25,3 +25,7 @@ elsif LOGGERLEVEL.eql? 'WARN'
 else
 	LOGGER.level = Logger::ERROR
 end
+
+#Kafka config
+KA_HOST = CONFIG['kafka_host']
+KA_PORT = CONFIG['kafka_port'].to_i

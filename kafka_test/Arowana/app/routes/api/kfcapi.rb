@@ -14,7 +14,8 @@ module Arowana
 				@messages = params[:msg]
 
 				#TO-DO: Configurable
-				result = KA_producer.send_sync('10.131.64.224', 9092, @client_id, @topic, @messages)
+				#result = KA_producer.send_sync('10.131.64.224', 9092, @client_id, @topic, @messages)
+				result = KA_producer.send_sync(@client_id, @topic, @messages)
 				if result
 					p 'message sent to kafka server successful' 
 				else
@@ -31,7 +32,8 @@ module Arowana
 
 				#get the next offset from Kafka Server, :socket_timeout_ms = 10s
 				#TO-DO: Configurable
-				@consumer = Poseidon::PartitionConsumer.new('test_consumer', '10.131.64.224', 9092, @tp_name, @partition_id, @offset_value)
+				#@consumer = Poseidon::PartitionConsumer.new('test_consumer', '10.131.64.224', 9092, @tp_name, @partition_id, @offset_value)
+				@consumer = Poseidon::PartitionConsumer.new('test_consumer', KA_HOST, KA_PORT, @tp_name, @partition_id, @offset_value)
 				#consume the messages, wait sockettimeout(10s by default) if no new messages to consume
 				@messages = KA_consumer.get_msgs(@consumer)
 				@next_offset = KA_consumer.get_hwm(@consumer)
@@ -51,7 +53,7 @@ module Arowana
 
 					@consumer.close
 
-					msg_added_count = @next_offset - @offset_value 
+					msg_added_count = @next_offset - @offset_value
 					return "#{msg_added_count} records updated successfully!\n"
 				else
 					@messages.clear
