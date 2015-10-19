@@ -25,10 +25,17 @@ module Arowana
 
 			get '/rest/getmsgs' do
 				@tp_name = params[:topic]
-				@partition_id = (params[:partition]==nil) ? params[:partition].to_i : 0
+				@partition_id = (params[:partition]==nil) ? 0: params[:partition].to_i
 
 				#fetch the offset from offsets table
-				@offset_value = Arowana::DBModel::Offsets.getOffsetByTopic(@tp_name).offset_id
+				@offset_topic = Arowana::DBModel::Offsets.getOffsetByTopic(@tp_name)
+				if @offset_topic != nil
+					@offset_value = @offset_topic.offset_id
+				else
+					p 'the topic does not exsited in offset table, creating one..'
+					Arowana::DBModel::Offsets.insertOffsetByTopic(@tp_name, @partition_id)
+					@offset_value = 0
+				end
 
 				#get the next offset from Kafka Server, :socket_timeout_ms = 10s
 				#TO-DO: Configurable
@@ -46,7 +53,7 @@ module Arowana
 						@batch_data << m.value.split(',')
 					end
 
-					Arowana::DBModel::UserTiming.batchInsertByTopic(@tp_name, @batch_data)
+					Arowana::DBModel::UserTiming.batchInsert(@batch_data)
 
 					# save it to the offsets table
 					Arowana::DBModel::Offsets.updateOffsetByTopic(@tp_name, @next_offset)
@@ -60,6 +67,11 @@ module Arowana
 					@consumer.close
 					return "nothing needs to be updated!\n"
 				end	
+			end
+
+			get '/rest/demo' do 
+				sleep 1
+				p "aysnc demo!"
 			end
         end
     end

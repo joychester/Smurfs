@@ -1,0 +1,10 @@
+!!!
+%html{:lang => "en"}
+    %head
+        %meta{:name=>"viewport", :content => "width=device-width, initial-scale=1.0", :charset => "UTF-8"}
+        %title Page Perf Trend
+    %body
+        %p List All tags from #{@env_name}
+        - @tags.each do |tag|
+            %a{href: "/pagetrend?env=#{@env_name}&tag=#{tag}"} #{tag}
+            %p

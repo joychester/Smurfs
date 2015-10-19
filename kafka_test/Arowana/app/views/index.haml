@@ -1,0 +1,40 @@
+!!!
+%html{:lang => "en"}
+    %head
+        %meta{:name=>"viewport", :content => "width=device-width, initial-scale=1.0", :charset => "UTF-8"}
+        %title Page Perf Trend
+        //%link{:href => "/resources/bootstrap/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}
+        %script{:src => "http://code.jquery.com/jquery-1.11.3.min.js", :type => "text/javascript"}
+        %script{:src => "http://code.highcharts.com/highcharts.js", :type => "text/javascript"}
+    %body
+        %p #{@env_name}
+        %p #{@page_name}
+        %p 
+        %a{href: "#{@test_url}"} #{@test_url}
+        %div{:id => "container", :style =>"width:100%; height:400px;"}
+        :javascript
+            $(function () {
+                 $('#container').highcharts({
+                      legend: {
+                           enabled: false
+                      },
+                      title: {
+                           text: '#{@page_name} Perf Trend'
+                      },
+                      xAxis: {
+                           type: 'datetime',
+                           categories: #{@data_time},
+                           tickInterval: 5
+                      },
+                      yAxis: {
+                           title: {
+                               text: 'User Timing'
+                           }
+                       },
+                       series: [{
+                           type: 'area',
+                           name: '#{@page_name}',
+                           data: #{@page_data}
+                       }]
+                });
+            });
